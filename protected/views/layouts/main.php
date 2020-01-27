@@ -30,9 +30,9 @@
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('post/index')),
 				array('label'=>'Login', 'url'=>array('site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Зарегиться', 'url'=>array('site/signUp'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>'SignUp', 'url'=>array('site/signUp'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('site/logout'), 'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'+Add', 'url'=>array('post/create')),
+				array('label'=>'+AddPaste', 'url'=>array('post/create')),
 			),
 		)); ?>
 	</div><!-- mainmenu -->

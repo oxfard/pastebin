@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Yii Blog Demo',
+	'name'=>'PasteBin',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -26,12 +26,6 @@ return array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
-		/*
-		'db'=>array(
-			'connectionString' => 'sqlite:protected/data/blog.db',
-			'tablePrefix' => 'tbl_',
-		),
-		*/
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=yiiblog2',
 			'emulatePrepare' => true,
@@ -53,8 +47,8 @@ return array(
 				'<action:(login|logout|signUp)>' => 'site/<action>',
 				'<action:(admin|create)>' => 'post/<action>',
 				
-				/*'post/<id:\w+>/<title:.*?>'=>'post/view',*/
 				'update/<id:\w+>'=>'post/update',
+				'delete/<id:\w+>'=>'post/delete',
 				'<id:\w+>'=>'post/view',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),

@@ -28,24 +28,20 @@ class PostController extends Controller
 	{ 
 		return array(
 			
-			array('allow',  // allow all users to access 'index' and 'view' actions.
-				'actions'=>array('index','view'),
+			array('allow',  // allow all users to access 'index','view','create' actions.
+				'actions'=>array('index','view','create'),
 				'users'=>array('*'),
 			),
-
-			array('allow', // allow authenticated users to access all actions
-				'actions'=>array('create'),
-				'users'=>array('*'),
-			),
-
-			array('allow', // allow authenticated users to access all actions
+			/*
+			array('allow',
 				'actions'=>array('admin'),
 				'users'=>array('@'),
 			),
-
+			*/
 			array('allow',  // allow all users to access 'update' actions.
-				'actions'=>array('update'),
+				'actions'=>array('update','delete'),
 				'expression' => array('PostController','allowOnlyOwner'),
+				
 			),
 			
 			array('deny',  // deny all users
@@ -57,7 +53,7 @@ class PostController extends Controller
 	public function allowOnlyOwner()
 	{
             $post = Post::model()->findByPk($_GET["id"]);
-            return $post->author_id == Yii::app()->user->id;
+            return ($post->author_id == Yii::app()->user->id); #and (time() < $post->expire_time) ;
     }
 
 	/**
@@ -66,11 +62,12 @@ class PostController extends Controller
 	public function actionView()
 	{
 		$post=$this->loadModel();
-		
 
-		$this->render('view',array(
-			'model'=>$post,
-		));
+		#if(UNIX_TIMESTAMP() < $post->expire_time){ 
+			$this->render('view',array(
+				'model'=>$post,
+			));
+		#}
 	}
 
 	/**
@@ -117,14 +114,18 @@ class PostController extends Controller
 	 */
 	public function actionDelete()
 	{
-		if(Yii::app()->request->isPostRequest)
+		if(!Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
 			$this->loadModel()->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			/*
 			if(!isset($_GET['ajax']))
 				$this->redirect(array('index'));
+			*/
+
+			$this->redirect(array('index'));
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
@@ -179,9 +180,9 @@ class PostController extends Controller
 			{
 				if(Yii::app()->user->isGuest)
 					
-					$condition='UNIX_TIMESTAMP() < expire_time';
+					$condition='expire_time > UNIX_TIMESTAMP()';
 				else
-					$condition='';
+					$condition='expire_time > UNIX_TIMESTAMP()';
 				$this->_model=Post::model()->findByPk($_GET['id'], $condition);
 			}
 			if($this->_model===null)

@@ -7,7 +7,7 @@
 	</div>
 	<div class="span-6 last">
 		<div id="sidebar">
-			<?php if(!Yii::app()->user->isGuest) $this->widget('UserMenu'); ?>
+			<?php #if(!Yii::app()->user->isGuest) $this->widget('UserMenu'); ?>
 			
 			<?php $this->widget('RecentPosts', array(
 				'maxPosts'=>Yii::app()->params['recentPostCount'],

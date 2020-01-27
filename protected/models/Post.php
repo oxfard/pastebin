@@ -12,7 +12,6 @@
  */
 class Post extends CActiveRecord
 {
-
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return static the static model class
@@ -133,9 +132,6 @@ class Post extends CActiveRecord
 	public function search()
 	{
 		$criteria=new CDbCriteria;
-
-		#$criteria->compare('title',$this->title,true);
-
 		$criteria->compare('status',$this->status);
 
 		return new CActiveDataProvider('Post', array(

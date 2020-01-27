@@ -3,7 +3,7 @@
 		<?php echo CHtml::link(CHtml::encode($data->title), $data->url); ?>
 	</div>
 	<div class="author">
-		posted by <?php echo $data->author->username . ' on ' . date('F j, Y',$data->create_time); ?>
+		<?php echo date('F j, Y',$data->create_time); ?>
 	</div>
 	<div class="content">
 		<?php
@@ -13,8 +13,9 @@
 		?>
 	</div>
 	<div class="nav">
-		<?php echo CHtml::link('Permalink', $data->url); ?> |
-		<?php echo CHtml::link('Update', 'update'.$data->url); echo Yii::app()->user->id == $data->author_id?" (Разрешено)":" (Запрещено)"; ?> |
+		Posted by <?php echo $data->author->username; ?> |
+		<?php if(Yii::app()->user->id == $data->author_id) {echo CHtml::link('Update', 'update'.$data->url);}; ?> |
+		<?php if(Yii::app()->user->id == $data->author_id) {echo CHtml::link('Delete', 'delete'.$data->url);}; ?> |
 		Last updated on <?php echo date('F j, Y',$data->update_time); ?>
 	</div>
 </div>
