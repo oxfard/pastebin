@@ -61,10 +61,11 @@ return array(
 					'levels'=>'error,trace,info,warning',
 				),
 				// uncomment the following to show log messages on web pages
-				
+				/*
 				array(
 					'class'=>'CWebLogRoute',
 				),
+				*/
 				
 			),
 		),
