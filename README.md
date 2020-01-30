@@ -28,10 +28,10 @@ Yii 1.1 Pastebin App
 'components'=>array(
 		...
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=pastebin',
+			'connectionString' => 'mysql:host=localhost;dbname=pastebin_db',
 			...
-			'username' => 'pastebin',
-			'password' => '111qwert111',
+			'username' => 'pastebin_user',
+			'password' => 'pastebin_pass',
 			...
 		),
 ~~~
