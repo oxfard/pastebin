@@ -27,10 +27,10 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=yiiblog2',
+			'connectionString' => 'mysql:host=localhost;dbname=pastebin_db',
 			'emulatePrepare' => true,
-			'username' => 'yiiblog',
-			'password' => '111qwert111',
+			'username' => 'pastebin_user',
+			'password' => 'pastebin_pass',
 			'charset' => 'utf8',
 			'tablePrefix' => 'tbl_',
 		),
