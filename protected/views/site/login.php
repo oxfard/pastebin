@@ -5,6 +5,10 @@ $this->breadcrumbs=array(
 );
 ?>
 
+<script type="text/javascript">
+  VK.init({apiId: 7304069});
+</script>
+
 <h1>Login</h1>
 
 <p>Please fill out the following form with your login credentials:</p>
@@ -44,3 +48,9 @@ $this->breadcrumbs=array(
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+<h2>Или войдите через ВК</h2>
+<!-- VK Widget -->
+		<div id="vk_auth"></div>
+		<script type="text/javascript">
+		  VK.Widgets.Auth("vk_auth", {"authUrl":"/login"});
+		</script>

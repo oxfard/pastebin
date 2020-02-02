@@ -22,24 +22,38 @@ class SiteController extends Controller
 	    }
 	}
 
-	
 
 	/**
 	 * Displays the login page
 	 */
 	public function actionLogin()
 	{
-		if (!defined('CRYPT_BLOWFISH')||!CRYPT_BLOWFISH)
-			throw new CHttpException(500,"This application requires that PHP was compiled with Blowfish support for crypt().");
+
+		// Если Вк авторизация
+		if(isset($_GET['hash']))
+		{	
+
+			if(md5('7304069'.$_GET['uid'].'m6tRzoG1PcjEGu0MIyNZ') == $_GET['hash'])
+			{
+				$ident = new UserIdentity($_GET['uid'], $_GET['hash']);
+                if($ident->authenticate())
+                {
+                    Yii::app()->user->login($ident);
+                    Yii::app()->user->setFlash('signUp', 'Логин прошел успешно!!!');
+                    $this->redirect(array('post/index'));
+                }
+                else
+                {
+                	$this->actionSignUp();
+                }
+			}
+			else 
+			{
+				echo "Fail. Hack attempt!!!"
+			;}
+		}
 
 		$model=new LoginForm;
-
-		// if it is ajax validation request
-		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
 
 		// collect user input data
 		if(isset($_POST['LoginForm']))
@@ -49,7 +63,8 @@ class SiteController extends Controller
 			if($model->validate() && $model->login())
 				$this->redirect(Yii::app()->user->returnUrl);
 		}
-		// display the login form
+
+		// Вывод формы авторизации
 		$this->render('login',array('model'=>$model));
 	}
 
@@ -64,33 +79,48 @@ class SiteController extends Controller
 	
 	public function actionSignUp()
     {
- 
         if (!Yii::app()->user->isGuest)
             throw new CHttpException(404, 'Error 404');
  
-        $model = new User('signUp');
+        $model = new User();
  
-        if(isset($_POST['ajax']) && $_POST['ajax'] === 'sign-up-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
- 
-        if(isset($_POST['User'])) {
+        if(isset($_POST['User'])) 
+        {
             $model->attributes = $_POST['User'];
  
-            if($model->save()) {
-                $login = new UserIdentity($model->email, $model->password);
-                if($login->authenticate() == '') {
-                    Yii::app()->user->login($login, 0);
- 
-                    //Здесь можно отправить письмо пользователю о успешной регистрации
- 
-                    Yii::app()->user->setFlash('signUp', 'Registration successful');
-                    $this->redirect(array('site/index'));
+            if($model->save())
+            {
+                $ident = new UserIdentity($model->username, $_POST['User']['password']);
+                if($ident->authenticate())
+                {
+                    Yii::app()->user->login($ident);
+                    Yii::app()->user->setFlash('signUp', 'Регистрация выполнена успешна. Автологин прошел успешно!!!');
+                    $this->redirect(array('post/index'));
                 }
  
             }
  
+        }
+
+        if(isset($_GET['hash'])) 
+        {
+        	$model->username = $_GET['uid'];
+        	$model->password = $_GET['hash'];
+        	if($model->save())
+            {
+            	# Авторизуем
+            	$ident = new UserIdentity($model->username, $_GET['hash']);
+            	if($ident->authenticate())
+                {
+                    Yii::app()->user->login($ident);
+                    Yii::app()->user->setFlash('signUp', 'Регистрация выполнена успешна. Автологин прошел успешно!!!');
+                    $this->redirect(array('post/index'));
+                }
+                else 
+                {
+                	var_dump('Неудачная идентификация');
+                }
+            }
         }
  
         $this->render('signUp', array('model' => $model));

@@ -14,10 +14,13 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
+	<script src="https://vk.com/js/api/openapi.js?166" type="text/javascript"></script>
+
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
 <body>
+
 
 <div class="container" id="page">
 
@@ -47,6 +50,8 @@
 		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
 		All Rights Reserved.<br/>
 		<?php echo Yii::powered(); ?>
+		
+		
 	</div><!-- footer -->
 
 </div><!-- page -->

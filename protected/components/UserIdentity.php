@@ -29,6 +29,15 @@ class UserIdentity extends CUserIdentity
 		return $this->errorCode==self::ERROR_NONE;
 	}
 
+	/* Аутентификация для ВК
+	public function authenticatevk()
+		{
+			$this->_id=$this->userid;
+			$this->username=$this->username;
+			return $this->errorCode==self::ERROR_NONE;
+		}
+	*/
+
 	/**
 	 * @return integer the ID of the user record
 	 */

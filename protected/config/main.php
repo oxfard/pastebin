@@ -27,10 +27,10 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=pastebin_db',
+			'connectionString' => 'mysql:host=localhost;dbname=pastebin',
 			'emulatePrepare' => true,
-			'username' => 'pastebin_user',
-			'password' => 'pastebin_pass',
+			'username' => 'pastebin',
+			'password' => 'Ghjcnjvjk67_!',
 			'charset' => 'utf8',
 			'tablePrefix' => 'tbl_',
 		),
@@ -61,11 +61,10 @@ return array(
 					'levels'=>'error,trace,info,warning',
 				),
 				// uncomment the following to show log messages on web pages
-				/*
+				
 				array(
 					'class'=>'CWebLogRoute',
 				),
-				*/
 				
 			),
 		),
