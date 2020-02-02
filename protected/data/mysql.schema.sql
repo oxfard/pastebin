@@ -48,6 +48,7 @@ INSERT INTO `tbl_post` (`id`, `title`, `content`, `status`, `create_time`, `upda
 	('3677ec39bf03344263ef0260ec714d15', 'post4', 'code', 2, 1580138930, 1580138930, 0, 1580225330),
 	('404dddf2f28ba8c094708bd4af61883f', 'post1', 'code', 2, 1580138736, 1580138736, 0, 1580225136),
 	('477cd2be255ab592a53603aeac8bae0f', 'post11', 'code', 2, 1580139044, 1580139044, 0, 1580743844),
+	('48ec77a236fd400ebd85a01e596a15cb', 'post12', 'code', 2, 1580641613, 1580641613, 0, 1581246413),
 	('547ade3ba4cd49bc21932d50f60ea1ce', 'post9', 'code', 2, 1580139015, 1580139015, 0, 1580743815),
 	('945468abc5092f06593a90cd5ca3f25c', 'post8', 'code', 2, 1580138999, 1580138999, 0, 1580225399),
 	('9f8c9f4fb6a78587c01e62cdd466104a', 'post3', 'code', 2, 1580138917, 1580138917, 0, 1580225317),
@@ -59,16 +60,29 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `profile` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*!40000 ALTER TABLE `tbl_user` DISABLE KEYS */;
 INSERT INTO `tbl_user` (`id`, `username`, `password`, `email`, `profile`) VALUES
 	(0, 'guest', 'isudifa34i34iu34u4hhj34gh34g_9fdf88df8df8df', 'guest@mail.ru', NULL),
 	(1, 'demo', '$2a$10$JTJf6/XqC94rrOtzuF397OHa4mbmZrVTBOQCmYD9U.obZRUut4BoC', 'webmaster@example.com', NULL),
-	(2, 'qops', '$2a$10$JTJf6/XqC94rrOtzuF397OHa4mbmZrVTBOQCmYD9U.obZRUut4BoC', 'webmaste2r@example.com', NULL);
+	(2, 'qops', '$2a$10$JTJf6/XqC94rrOtzuF397OHa4mbmZrVTBOQCmYD9U.obZRUut4BoC', 'webmaste2r@example.com', NULL),
+	(5, 'demo2', '$2y$13$saCc.QeW8sU2J7.badmv4uIzRU2je/kN5P3o73/zGih3leByeCFIq', 'demo2', NULL),
+	(6, 'demo3', '$2y$13$.eEmppGKz0UurSaIrrk4A.rck2znrgQLMl1lsH0d66q8M59p7VRnq', 'demo3', NULL),
+	(7, 'demo4', '$2y$13$P28lCO9U81loj5k38FNN5O8eqM2mRcQYl86ojbwnuOnNSJ26AnHlq', 'demo4', NULL),
+	(8, 'demo5', '$2y$13$ngMxVhqw2cxo7yFGWe3V6OznIJEazE/bygFQtzzBp2xQTdpjLpV.2', 'demo5', NULL),
+	(9, 'demo6', '$2y$13$PlwpbqbmXAOGG88HzUge8OxC.dA4Qn8d0vGJTa5mkF9zPPwFsVWW.', 'demo6', NULL),
+	(10, 'demo7', '$2y$13$jrPfW9Ih1Qk65P9KYwsQQuxiYqPUvbBDj5ZbDvhRjNZbc6NmcD1fy', 'demo7', NULL),
+	(11, 'demo9', '$2y$13$DzuVhyhA0Mo9W9g4Mdx0uOM7Qdo7ySc3q.ADpvyChyesZNbfJCbky', 'demo', NULL),
+	(12, 'demo10', '$2y$13$BRKoEC5tB0m.f5yfxkJYZ.hi0tWI/V6Vws500KNTbD07NiCYpf9GS', 'jjkljk', NULL),
+	(18, 'demo11', '$2y$13$WdU9R/0t5onNGj6vmlBOuOsndMxX/27AIYKW4KaefNoegb6OjPwVW', '111', NULL),
+	(19, 'demo11', '$2y$13$Cd238HIzghLKUhXvQFr3oOH/bRbBOJu10rzOOgtrREQlZt1eH2Due', '111', NULL),
+	(20, 'demo12', '$2y$13$JZRJ0W73eq419I5aePOVwOMWA1EMZA8TYcyTo.PI4RVgJVQn9YeaC', NULL, NULL),
+	(35, 'demo13', '$2y$13$dVCqnropvMuJTLjWJNVM8urxLMtfAyCgyfKQWAtLmHkJL5WIoQ1eS', NULL, NULL),
+	(36, '43307412', '$2y$13$/hwQrmfrdFcnDjuHMa6wIerjTKDhAUxSVxtxXxq5aCVlGMKxEGPr.', NULL, NULL);
 /*!40000 ALTER TABLE `tbl_user` ENABLE KEYS */;
 
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
