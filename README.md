@@ -32,9 +32,7 @@
 Открыть дирректории на запись
 
 	/storage/logs
-    
 	/storage/framework/sessions
-    
 	/storage/framework/views
 
 Выполнить миграции
