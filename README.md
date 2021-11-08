@@ -30,20 +30,27 @@
 	DB_PASSWORD=
 
 Открыть дирректории на запись
+
 	/storage/logs
+    
 	/storage/framework/sessions
+    
 	/storage/framework/views
 
 Выполнить миграции
+
 	php artisan migrate
 
 Настройка ВК-авторизации
+
 	зарегестрировать приложение в https://vk.com/apps?act=manage
 
 В .env заполнить 
+
     VKONTAKTE_CLIENT_ID=
     VKONTAKTE_CLIENT_SECRET=
 
 Собрать фронт
+
     npm install
     
