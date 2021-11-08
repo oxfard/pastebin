@@ -11,6 +11,7 @@
     git clone https://github.com/oxfard/pastebin.git
 
 Заходим в папку проекта
+
     cd pastebin
 
 Устанавливаем зависимости
