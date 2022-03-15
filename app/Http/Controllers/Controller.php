@@ -9,6 +9,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreUpdatePasteRequest;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -34,30 +35,24 @@ class Controller extends BaseController
      *
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreUpdatePasteRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required',
-            'content' => 'required',
-            'language' => 'required',
-            'access_type' => 'required',
-            'expires_at' => 'required',
-        ]);
-        $fields = [
-            'name'  => $validated['name'],
-            'access_type'  => $validated['access_type'],
-            'url_path'  => Str::random(12),
-            'language'  => $validated['language'],
-            'content'  => $validated['content'],
-        ];
-        $expires_at = str_replace('-',' ',$validated['expires_at']);
+
+        $fields = $request->validated();
+
+        $fields['url_path'] = Str::random(12);
+
+        // Модифицируем имеющееся поле 'expires_at'
+        $expires_at = str_replace('-',' ',$fields['expires_at']);
         $fields['expires_at'] = $expires_at === 'never' ? null : date('Y-m-d H:i:s',strtotime('+' . $expires_at));
 
-        if(Auth::check()){
+        if( Auth::check() ){
             $fields['user_id'] = Auth::id();
-        }elseif ($fields['access_type'] === 'private'){
+        }elseif ( $fields['access_type'] === 'private' ){
             $fields['access_type'] = 'unlisted';
         }
+
+//        dd($fields);
 
         $paste = Paste::create($fields);
 
@@ -102,7 +97,7 @@ class Controller extends BaseController
      *
      * @return Renderable
      */
-    public function update(Request $request, Paste $paste)
+    public function update(StoreUpdatePasteRequest $request, Paste $paste)
     {
         // todo протестировать проверку просроченности и принадлежности пользователю
         if($paste->isExpired()){
@@ -111,46 +106,20 @@ class Controller extends BaseController
             abort(403);
         }
 
-        $validated = $request->validate([
-            'name' => 'required',
-            'content' => 'required',
-            'language' => 'required',
-            'access_type' => 'required',
-            'expires_at' => 'required',
-        ]);
+        $fields = $request->validated();
 
-        $fields = [
-            'name'  => $validated['name'],
-            'access_type'  => $validated['access_type'],
-            'language'  => $validated['language'],
-            'content'  => $validated['content'],
-        ];
 
-        if($validated['expires_at'] !== 'nochng'){
+        if($fields['expires_at'] !== 'nochng'){
             // добавляем это поле в $fields
-            $expires_at = str_replace('-',' ',$validated['expires_at']);
+            $expires_at = str_replace('-',' ',$fields['expires_at']);
             $fields['expires_at'] = $expires_at === 'never' ? null : date('Y-m-d H:i:s',strtotime('+' . $expires_at));
+        } else {
+            unset($fields['expires_at']);
         }
-
-//        if(Auth::check()){
-//            $fields['user_id'] = Auth::id();
-//        }elseif ($fields['access_type'] === 'private'){
-//            $fields['access_type'] = 'unlisted';
-//        }
-
 
         $paste->update($fields);
 
         return redirect()->route('show', [$paste->url_path])->with('success','Post updated successfully');
-
-
-
-        // return view('edit',['paste' => $paste]);
-        //dd($request->all());
-        //$paste = Paste::where('url_path', $url)->first();
-        //return $url.' метод пост'. $request. '<<<<<<>>>>>>>>>>'. dd($paste);
-
-        #return 'Паста обновлена';
 
     }
 
