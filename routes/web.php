@@ -21,14 +21,14 @@ Route::group(['middleware'=>'guest'], function() {
     Route::get('/vk/auth/callback', [App\Http\Controllers\SocialController::class, 'callback']);
 });
 
-Route::get('/',  [App\Http\Controllers\Controller::class, 'index'])->name('index');
-Route::post('/',  [App\Http\Controllers\Controller::class, 'store'])->name('store');
-Route::get('/my', [App\Http\Controllers\Controller::class, 'my'])->middleware('auth')->name('my');
+Route::get('/',  [App\Http\Controllers\PastebinController::class, 'index'])->name('index');
+Route::post('/',  [App\Http\Controllers\PastebinController::class, 'store'])->name('store');
+Route::get('/my', [App\Http\Controllers\PastebinController::class, 'my'])->middleware('auth')->name('my');
 
-Route::get('/edit/{paste}', [App\Http\Controllers\Controller::class, 'edit'])->middleware('auth')->name('edit');
-Route::put('/edit/{paste}', [App\Http\Controllers\Controller::class, 'update'])->middleware('auth')->name('update');
+Route::get('/edit/{paste}', [App\Http\Controllers\PastebinController::class, 'edit'])->middleware('auth')->name('edit');
+Route::put('/edit/{paste}', [App\Http\Controllers\PastebinController::class, 'update'])->middleware('auth')->name('update');
 
-Route::get('/{paste}',  [App\Http\Controllers\Controller::class, 'show'])->name('show');
+Route::get('/{paste}',  [App\Http\Controllers\PastebinController::class, 'show'])->name('show');
 
 
 
