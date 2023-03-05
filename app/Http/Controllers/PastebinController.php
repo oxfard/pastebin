@@ -21,6 +21,7 @@ class PastebinController extends Controller
      */
     public function index()
     {
+        // Тестовый комментарий
         return view('index');
     }
 
